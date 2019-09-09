@@ -66,7 +66,7 @@ def get_uge_info(conn_time_out, read_time_out, session, type):
     elif type == "users":
         url = rootUrl + type
     elif type == "clusterqueues":
-        url = rootUrl + rootUrl + type
+        url = rootUrl + type
     elif type == "hostsummary":
         url = rootUrl + "hostsummary/1/500"
     else:
