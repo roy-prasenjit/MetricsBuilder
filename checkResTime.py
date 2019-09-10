@@ -10,7 +10,9 @@ def main():
     # hostList = []
     # with open('/home/bmc_iplist.txt', 'r') as bmc_file:
     #     hostList = json.load(bmc_file)
-    hostList = ['10.101.1.1']
+    host = '10.101.1.1'
+    conn_time_out = 15
+    read_time_out = 40
     session = requests.Session()
 
     taskList = []
@@ -36,22 +38,24 @@ def main():
     # print(thermal_time)
     #
     # Total time for getting Power status
-    power_time = serialTasksTime(hostList, checkList[3], session)
-    print("Total time for getting Power status: "),
-    print(power_time)
+    # power_time = serialTasksTime(hostList, checkList[3], session)
+    # print("Total time for getting Power status: "),
+    # print(power_time)
 
+    power_status = get_status(host, 'Power', conn_time_out, read_time_out, session)
+    print(json.dumps(power_status, indent = 4))
     # print(taskList)
 
 # Serial tasks
-def serialTasksTime(hostList, checkType, session):
-    conn_time_out = 15
-    read_time_out = 40
-    start_time = time.time()
-    for host in hostList:
-        status = get_status(host, checkType, conn_time_out, read_time_out, session)
-        print(json.dumps(status, indent = 4))
-    tot_time = time.time() - start_time
-    return tot_time
+# def serialTasksTime(hostList, checkType, session):
+#     conn_time_out = 15
+#     read_time_out = 40
+#     start_time = time.time()
+#     for host in hostList:
+#         status = get_status(host, checkType, conn_time_out, read_time_out, session)
+#         print(json.dumps(status, indent = 4))
+#     tot_time = time.time() - start_time
+#     return tot_time
 
 def get_status(host, checkType, conn_time_out, read_time_out, session):
 
