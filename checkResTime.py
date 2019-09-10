@@ -7,7 +7,7 @@ def main():
     # hostList = []
     # with open('/home/bmc_iplist.txt', 'r') as bmc_file:
     #     hostList = json.load(bmc_file)
-    hostList = ['10.101.1.1']
+    hostList = ['10.101.1.1', '10.101.1.2']
     session = requests.Session()
 
     taskList = []
