@@ -25,20 +25,20 @@ def main():
     print("Total time for getting BMCHealth status: "),
     print(bmc_health_time)
 
-    # Total time for getting SystemHealth status
-    sys_health_time = serialTasksTime(hostList, checkList[1], session)
-    print("Total time for getting SystemHealth status: "),
-    print(sys_health_time)
-
-    # Total time for getting Thermal status
-    thermal_time = serialTasksTime(hostList, checkList[2], session)
-    print("Total time for getting Thermal status: "),
-    print(thermal_time)
-
-    # Total time for getting Power status
-    power_time = serialTasksTime(hostList, checkList[3], session)
-    print("Total time for getting Power status: "),
-    print(power_time)
+    # # Total time for getting SystemHealth status
+    # sys_health_time = serialTasksTime(hostList, checkList[1], session)
+    # print("Total time for getting SystemHealth status: "),
+    # print(sys_health_time)
+    #
+    # # Total time for getting Thermal status
+    # thermal_time = serialTasksTime(hostList, checkList[2], session)
+    # print("Total time for getting Thermal status: "),
+    # print(thermal_time)
+    #
+    # # Total time for getting Power status
+    # power_time = serialTasksTime(hostList, checkList[3], session)
+    # print("Total time for getting Power status: "),
+    # print(power_time)
 
     # print(taskList)
 
@@ -67,7 +67,7 @@ def get_status(host, checkType, conn_time_out, read_time_out, session):
         print("Check Type Error")
         return -1
     try:
-        response = session.get(url, verify = False, auth = ('root', 'niviput'), timeout = (conn_time_out, read_time_out))
+        response = session.get(url, verify = False, auth = ('root', 'nivipnut'), timeout = (conn_time_out, read_time_out))
         response.raise_for_status()
         data = response.json()
         return data
