@@ -2,12 +2,15 @@ import json
 import time
 import requests
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 def main():
 
     # hostList = []
     # with open('/home/bmc_iplist.txt', 'r') as bmc_file:
     #     hostList = json.load(bmc_file)
-    hostList = ['10.101.1.1', '10.101.1.2']
+    hostList = ['10.101.1.1']
     session = requests.Session()
 
     taskList = []
