@@ -49,6 +49,7 @@ def serialTasksTime(hostList, checkType, session):
     start_time = time.time()
     for host in hostList:
         status = get_status(host, checkType, conn_time_out, read_time_out, session)
+        print(json.dumps(status, indent = 4))
     tot_time = time.time() - start_time
     return tot_time
 
