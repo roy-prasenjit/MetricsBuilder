@@ -67,7 +67,7 @@ def get_status(host, checkType, conn_time_out, read_time_out, session):
         response.raise_for_status()
         data = response.json()
         return data
-    except requests.exception.RequestException as e:
+    except requests.exceptions.RequestException as e:
         return str(e)
 
 if __name__ == "__main__":
