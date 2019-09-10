@@ -42,8 +42,25 @@ def main():
     # print("Total time for getting Power status: "),
     # print(power_time)
 
-    power_status = get_status(host, 'Power', conn_time_out, read_time_out, session)
-    print(json.dumps(power_status, indent = 4))
+    bmc_health = get_status(host, 'BMCHealth', conn_time_out, read_time_out, session)
+    with open("BMCHealth.json", "wb") as outfile:
+            json.dump(bmc_health, outfile, indent = 4)
+    # print(json.dumps(bmc_health, indent = 4))
+
+    sys_health = get_status(host, 'SystemHealth', conn_time_out, read_time_out, session)
+    with open("SystemHealth.json", "wb") as outfile:
+            json.dump(sys_health, outfile, indent = 4)
+    # print(json.dumps(sys_health, indent = 4))
+
+    thermal = get_status(host, 'Thermal', conn_time_out, read_time_out, session)
+    with open("Thermal.json", "wb") as outfile:
+            json.dump(thermal, outfile, indent = 4)
+    # print(json.dumps(thermal, indent = 4))
+
+    power = get_status(host, 'Power', conn_time_out, read_time_out, session)
+    with open("Power.json", "wb") as outfile:
+            json.dump(power, outfile, indent = 4)
+    # print(json.dumps(power, indent = 4))
     # print(taskList)
 
 # Serial tasks
