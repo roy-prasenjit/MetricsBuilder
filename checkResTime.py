@@ -79,7 +79,7 @@ def get_status(host, checkType, conn_time_out, read_time_out, session):
     if checkType == 'BMCHealth':
         url = "https://" + host + "/redfish/v1/Managers/iDRAC.Embedded.1"
     elif checkType == 'SystemHealth':
-        url = "https://" + host + "/redfish/v1/System/System.Embedded.1"
+        url = "https://" + host + "/redfish/v1/Systems/System.Embedded.1"
     elif checkType == 'Thermal':
         url = "https://" + host + "/redfish/v1/Chassis/System.Embedded.1/Thermal/"
     elif checkType == 'Power':
