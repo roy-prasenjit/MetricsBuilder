@@ -4,7 +4,7 @@ import requests
 
 def main():
     hostList = []
-    with open('../scripts/bmc_iplist.txt', 'r') as bmc_file:
+    with open('/home/bmc_iplist.txt', 'r') as bmc_file:
         hostList = json.load(bmc_file)
 
     session = requests.Session()
