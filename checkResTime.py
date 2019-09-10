@@ -3,14 +3,14 @@ import time
 import requests
 
 def main():
-    hostList = []
-    with open('/home/bmc_iplist.txt', 'r') as bmc_file:
-        hostList = json.load(bmc_file)
 
+    # hostList = []
+    # with open('/home/bmc_iplist.txt', 'r') as bmc_file:
+    #     hostList = json.load(bmc_file)
+    hostList = ['10.101.1.1']
     session = requests.Session()
 
     taskList = []
-
     checkList = ['BMCHealth', 'SystemHealth', 'Thermal', 'Power']
 
     # for host in hostList:
