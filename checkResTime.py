@@ -21,9 +21,9 @@ def main():
     #         taskList.append((host, check))
 
     # Total time for getting BMCHealth status
-    bmc_health_time = serialTasksTime(hostList, checkList[0], session)
-    print("Total time for getting BMCHealth status: "),
-    print(bmc_health_time)
+    # bmc_health_time = serialTasksTime(hostList, checkList[0], session)
+    # print("Total time for getting BMCHealth status: "),
+    # print(bmc_health_time)
 
     # # Total time for getting SystemHealth status
     # sys_health_time = serialTasksTime(hostList, checkList[1], session)
@@ -35,10 +35,10 @@ def main():
     # print("Total time for getting Thermal status: "),
     # print(thermal_time)
     #
-    # # Total time for getting Power status
-    # power_time = serialTasksTime(hostList, checkList[3], session)
-    # print("Total time for getting Power status: "),
-    # print(power_time)
+    # Total time for getting Power status
+    power_time = serialTasksTime(hostList, checkList[3], session)
+    print("Total time for getting Power status: "),
+    print(power_time)
 
     # print(taskList)
 
