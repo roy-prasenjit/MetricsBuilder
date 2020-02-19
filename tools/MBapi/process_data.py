@@ -95,19 +95,20 @@ def process_job_data(job_data: dict) -> dict:
         else:
             # Array job
             job_id_root = job_id.split("A")[0]
+            job_id_array = job_id.split("A")[1]
             if job_id_root not in json_data:
-                json_data[job_id_root].update({
+                json_data[job_id_root] = {
                     "user_name": job_data[item]["user_name"],
                     "submit_time": job_data[item]["submit_time"],
                     "start_time": {},
                     "job_array": True
-                })
+                }
                 json_data[job_id_root]["start_time"].update({
-                    job_id: job_data[item]["start_time"]
+                    job_id_array: job_data[item]["start_time"]
                 })
             else:
                 json_data[job_id_root]["start_time"].update({
-                    job_id: job_data[item]["start_time"]
+                    job_id_array: job_data[item]["start_time"]
                 })
 
     return json_data
