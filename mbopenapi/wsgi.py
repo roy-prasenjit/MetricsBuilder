@@ -1,7 +1,7 @@
-from openapi_server.__main__ import main
+from openapi_server.__main__ import mbapi
 
 if __name__ == "__main__":
-    app = main()
+    app = mbapi()
     app.run()
 else:
-    gunicorn_app = main()
+    gunicorn_app = mbapi()
