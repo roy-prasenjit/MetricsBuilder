@@ -1,8 +1,8 @@
 #! /bin/bash
 
-activate(){
-    . ../env/bin/activate
-}
+# activate(){
+#     . ../env/bin/activate
+# }
 
 if [ $# == 0 ]
   then
@@ -12,8 +12,9 @@ fi
 
 if [ $1 == 0 ]
 then
-    activate
+    # activate
     echo "Start MetricsBuilderAPI ..."
+    cd /home/li29729/MetricsBuilder/mbopenapi/
     nohup python3.6 -m openapi_server >> running.log &
 else
     echo "Stop MetricsBuilderAPI ..."
