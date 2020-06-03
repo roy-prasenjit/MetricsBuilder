@@ -39,7 +39,7 @@ paths:
         \ requesting data with time \n range falls on this time point.\n"
       operationId: get_unified_metric
       parameters:
-      - description: start time of time range of the monitoring metrics
+      - description: Start time of time range.
         explode: true
         in: query
         name: start
@@ -49,7 +49,7 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: end time of time range of the monitoring metrics
+      - description: End time of time range.
         explode: true
         in: query
         name: end
@@ -59,7 +59,7 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: time interval for aggregating the monitoring metrics
+      - description: Time interval for aggregating the monitoring metrics.
         explode: true
         in: query
         name: interval
@@ -69,7 +69,7 @@ paths:
           pattern: ^[1-9][0-9]*[s, m, h, d, w]$
           type: string
         style: form
-      - description: value type of the monitoring metrics
+      - description: Value type of the monitoring metrics.
         explode: true
         in: query
         name: value
@@ -83,7 +83,7 @@ paths:
           example: max
           type: string
         style: form
-      - description: return compressed data
+      - description: Return compressed data.
         explode: true
         in: query
         name: compress
@@ -101,6 +101,7 @@ paths:
         name: racks
         required: false
         schema:
+          example: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
           pattern: ^[\d\d*, ?]+$|^\d\d*\-\d\d* ?$
           type: string
         style: form
@@ -110,8 +111,26 @@ paths:
         name: computers
         required: false
         schema:
+          example: 1-60
           pattern: ^[\d\d*, ?]+$|^\d\d*\-\d\d* ?$
           type: string
+        style: form
+      - description: Monitoring metrics returned.
+        explode: true
+        in: query
+        name: metrics
+        required: true
+        schema:
+          items:
+            enum:
+            - CPU temperature
+            - Inlet temperature
+            - Fans speed
+            - Memory usage
+            - CPU usage
+            - Node Power
+            type: string
+          type: array
         style: form
       responses:
         "200":

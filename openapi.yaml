@@ -163,7 +163,7 @@ paths:
           type: string
           format: date-time
           example: '2020-02-14T12:00:00-05:00'
-        description: start time of time range of the monitoring metrics
+        description: Start time of time range.
       - in: query
         name: end
         required: true
@@ -171,7 +171,7 @@ paths:
           type: string
           format: date-time
           example: '2020-02-14T18:00:00-05:00'
-        description: end time of time range of the monitoring metrics
+        description: End time of time range.
       - in: query
         name: interval
         required: true
@@ -179,7 +179,7 @@ paths:
           type: string
           pattern: '^[1-9][0-9]*[s, m, h, d, w]$'
           example: '5m'
-        description: time interval for aggregating the monitoring metrics
+        description: Time interval for aggregating the monitoring metrics.
       - in: query
         name: value
         required: true
@@ -191,7 +191,7 @@ paths:
             - max
             - mean
             - median
-        description: value type of the monitoring metrics
+        description: Value type of the monitoring metrics.
       - in: query
         name: compress
         required: true
@@ -201,14 +201,14 @@ paths:
           enum:
             - true
             - false
-        description: return compressed data
+        description: Return compressed data.
       - in: query
         name: racks
         required: false
         schema:
           type: string
           pattern: '^[\d\d*, ?]+$|^\d\d*\-\d\d* ?$'
-          # example: '1, 2, 3, 4 or 1-4'
+          example: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10'
         description: Racks of the cluster.
       - in: query
         name: computers
@@ -216,8 +216,23 @@ paths:
         schema:
           type: string
           pattern: '^[\d\d*, ?]+$|^\d\d*\-\d\d* ?$'
-          # example: '1, 2, 3, 4 or 1-4'
-        description: Computer IDs on each rack. 
+          example: '1-60'
+        description: Computer IDs on each rack.
+      - in: query
+        name: metrics
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+              - CPU temperature
+              - Inlet temperature
+              - Fans speed
+              - Memory usage
+              - CPU usage
+              - Node Power
+        description: Monitoring metrics returned.
       responses:
         '200':
           description: Get unified metrics successfully
