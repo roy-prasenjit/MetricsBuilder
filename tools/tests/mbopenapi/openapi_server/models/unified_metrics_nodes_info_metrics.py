@@ -15,7 +15,7 @@ class UnifiedMetricsNodesInfoMetrics(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, memory_usage=None, cpu_usage=None, power_usage=None, fan_speed=None, cpu_inl_temp=None):  # noqa: E501
+    def __init__(self, memory_usage=None, cpu_usage=None, power_usage=None, fan_speed=None, cpu_inl_temp=None, job_id=None):  # noqa: E501
         """UnifiedMetricsNodesInfoMetrics - a model defined in OpenAPI
 
         :param memory_usage: The memory_usage of this UnifiedMetricsNodesInfoMetrics.  # noqa: E501
@@ -28,13 +28,16 @@ class UnifiedMetricsNodesInfoMetrics(Model):
         :type fan_speed: List[List[int]]
         :param cpu_inl_temp: The cpu_inl_temp of this UnifiedMetricsNodesInfoMetrics.  # noqa: E501
         :type cpu_inl_temp: List[List[float]]
+        :param job_id: The job_id of this UnifiedMetricsNodesInfoMetrics.  # noqa: E501
+        :type job_id: List[str]
         """
         self.openapi_types = {
             'memory_usage': List[float],
             'cpu_usage': List[float],
             'power_usage': List[float],
             'fan_speed': List[List[int]],
-            'cpu_inl_temp': List[List[float]]
+            'cpu_inl_temp': List[List[float]],
+            'job_id': List[str]
         }
 
         self.attribute_map = {
@@ -42,7 +45,8 @@ class UnifiedMetricsNodesInfoMetrics(Model):
             'cpu_usage': 'cpu_usage',
             'power_usage': 'power_usage',
             'fan_speed': 'fan_speed',
-            'cpu_inl_temp': 'cpu_inl_temp'
+            'cpu_inl_temp': 'cpu_inl_temp',
+            'job_id': 'job_id'
         }
 
         self._memory_usage = memory_usage
@@ -50,6 +54,7 @@ class UnifiedMetricsNodesInfoMetrics(Model):
         self._power_usage = power_usage
         self._fan_speed = fan_speed
         self._cpu_inl_temp = cpu_inl_temp
+        self._job_id = job_id
 
     @classmethod
     def from_dict(cls, dikt) -> 'UnifiedMetricsNodesInfoMetrics':
@@ -176,3 +181,26 @@ class UnifiedMetricsNodesInfoMetrics(Model):
             raise ValueError("Invalid value for `cpu_inl_temp`, must not be `None`")  # noqa: E501
 
         self._cpu_inl_temp = cpu_inl_temp
+
+    @property
+    def job_id(self):
+        """Gets the job_id of this UnifiedMetricsNodesInfoMetrics.
+
+
+        :return: The job_id of this UnifiedMetricsNodesInfoMetrics.
+        :rtype: List[str]
+        """
+        return self._job_id
+
+    @job_id.setter
+    def job_id(self, job_id):
+        """Sets the job_id of this UnifiedMetricsNodesInfoMetrics.
+
+
+        :param job_id: The job_id of this UnifiedMetricsNodesInfoMetrics.
+        :type job_id: List[str]
+        """
+        if job_id is None:
+            raise ValueError("Invalid value for `job_id`, must not be `None`")  # noqa: E501
+
+        self._job_id = job_id

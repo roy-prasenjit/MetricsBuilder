@@ -22,6 +22,10 @@ paths:
         Get **unified metrics** based on speficied start time, end time, time interval and value type. The **start** and **end** time should follow date-time Notation as defined by [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6), e.g. `2020-02-12T14:00:00Z`; the time **interval** should follow **duration literals**, which specify a length of time; the **value** type should only be `min`, `max`, `mean`, or `median`.
 
         A duration literal is an integer literal followed immediately (with no spaces) by a duration unit, the units include `s`(second), `m`(minute), `h`(hour), `d`(day), `w`(week).
+
+        Use compress to specify returned data is compressed or not. If query large range of time with small interval, it would reduce significant transfering time using compressed data. For Json data compression and de-compression, please refer to [this](https://medium.com/@busybus/zipjson-3ed15f8ea85d).
+
+        One thing to be noticed, due to we switched database on April 28, 2020 11:40:00 AM GMT-05:00 DST, currently we do not support requesting data with time range falls on this time point.
       operationId: get_unified_metric
       parameters:
       - description: start time of time range of the monitoring metrics
@@ -30,7 +34,7 @@ paths:
         name: start
         required: true
         schema:
-          example: 2020-02-14T12:00:00Z
+          example: 2020-02-14T12:00:00-05:00
           format: date-time
           type: string
         style: form
@@ -40,7 +44,7 @@ paths:
         name: end
         required: true
         schema:
-          example: 2020-02-14T18:00:00Z
+          example: 2020-02-14T18:00:00-05:00
           format: date-time
           type: string
         style: form
@@ -67,6 +71,18 @@ paths:
           - median
           example: max
           type: string
+        style: form
+      - description: return compressed data
+        explode: true
+        in: query
+        name: compress
+        required: true
+        schema:
+          enum:
+          - true
+          - false
+          example: true
+          type: boolean
         style: form
       responses:
         "200":
@@ -97,6 +113,9 @@ components:
               - 5
             - - 5
               - 5
+            job_id:
+            - job_id
+            - job_id
             memory_usage:
             - 0.8008281904610115
             - 0.8008281904610115
@@ -110,15 +129,21 @@ components:
               - 5.637376656633329
         jobs_info:
           details:
-            start_time: ""
-            array_job: true
-            submit_time: 2
+            start_time: 2.3021358869347655
+            job_name: job_name
+            job_array: true
+            submit_time: 7.061401241503109
             user_name: user_name
-            finish_time: ""
+            total_nodes: 3.616076749251911
+            cpu_cores: 2.027123023002322
+            node_list:
+            - node_list
+            - node_list
+            finish_time: 9.301444243932576
           id: id
         time_stamp:
-        - 7
-        - 7
+        - 4
+        - 4
       properties:
         nodes_info:
           $ref: '#/components/schemas/UnifiedMetrics_nodes_info'
@@ -153,6 +178,9 @@ components:
           - 5
         - - 5
           - 5
+        job_id:
+        - job_id
+        - job_id
         memory_usage:
         - 0.8008281904610115
         - 0.8008281904610115
@@ -189,10 +217,15 @@ components:
               type: number
             type: array
           type: array
+        job_id:
+          items:
+            type: string
+          type: array
       required:
       - cpu_inl_temp
       - cpu_usage
       - fan_speed
+      - job_id
       - memory_usage
       - power_usage
     UnifiedMetrics_nodes_info:
@@ -207,6 +240,9 @@ components:
             - 5
           - - 5
             - 5
+          job_id:
+          - job_id
+          - job_id
           memory_usage:
           - 0.8008281904610115
           - 0.8008281904610115
@@ -228,34 +264,62 @@ components:
       - metrics
     UnifiedMetrics_jobs_info_details:
       example:
-        start_time: ""
-        array_job: true
-        submit_time: 2
+        start_time: 2.3021358869347655
+        job_name: job_name
+        job_array: true
+        submit_time: 7.061401241503109
         user_name: user_name
-        finish_time: ""
+        total_nodes: 3.616076749251911
+        cpu_cores: 2.027123023002322
+        node_list:
+        - node_list
+        - node_list
+        finish_time: 9.301444243932576
       properties:
+        start_time:
+          type: number
+        submit_time:
+          type: number
+        finish_time:
+          type: number
+        job_name:
+          type: string
         user_name:
           type: string
-        submit_time:
-          type: integer
-        start_time: {}
-        finish_time: {}
-        array_job:
+        node_list:
+          items:
+            type: string
+          type: array
+        total_nodes:
+          type: number
+        cpu_cores:
+          type: number
+        job_array:
           type: boolean
       required:
-      - array_job
+      - cpu_cores
       - finish_time
+      - job_array
+      - job_name
+      - node_list
       - start_time
       - submit_time
+      - total_nodes
       - user_name
     UnifiedMetrics_jobs_info:
       example:
         details:
-          start_time: ""
-          array_job: true
-          submit_time: 2
+          start_time: 2.3021358869347655
+          job_name: job_name
+          job_array: true
+          submit_time: 7.061401241503109
           user_name: user_name
-          finish_time: ""
+          total_nodes: 3.616076749251911
+          cpu_cores: 2.027123023002322
+          node_list:
+          - node_list
+          - node_list
+          finish_time: 9.301444243932576
         id: id
       properties:
         id:

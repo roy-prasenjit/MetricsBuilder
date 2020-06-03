@@ -23,7 +23,9 @@ class TestDefaultController(BaseTestCase):
                         ('end', 2020-02-14T18:00-05:00),
                         ('interval', 5m),
                         ('value', max),
-                        ('compress', true)]
+                        ('compress', true),
+                        ('racks', 'racks_example'),
+                        ('computers', 'computers_example')]
         headers = { 
             'Accept': 'application/json',
         }

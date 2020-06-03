@@ -33,7 +33,7 @@ setup(
     entry_points={
         'console_scripts': ['openapi_server=openapi_server.__main__:main']},
     long_description="""\
-    An API for accessing High Performance Computing(HPC) system monitoring metrics.
+    An API for accessing High Performance Computing(HPC) system monitoring metrics. 
     """
 )
 
