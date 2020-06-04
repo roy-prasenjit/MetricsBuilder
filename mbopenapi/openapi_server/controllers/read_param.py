@@ -16,8 +16,10 @@ def read_host_list(racks: str, computers: str, host_pool: list) -> list:
         else:
             raw_racks = racks.split(",")
             for i in raw_racks:
-                if i:
+                try:
                     rack_list.append(int(i))
+                except:
+                    pass
         # Parse computers
         if "-" in computers:
             st_comp = int(computers.split("-")[0])
@@ -27,8 +29,10 @@ def read_host_list(racks: str, computers: str, host_pool: list) -> list:
         else:
             raw_comps = computers.split(",")
             for i in raw_comps:
-                if i:
+                try:
                     comp_list.append(int(i))
+                except:
+                    pass
         # Generate IP addr and append it if in host pool
         for r in rack_list:
             for c in comp_list:
@@ -78,5 +82,3 @@ def read_metrics(metrics: list) -> dict:
     except Exception as err:
         print(err)
     return labels
-
-# read_host_list(racks: str, computers: str, host_pool: list)
