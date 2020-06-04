@@ -5,6 +5,10 @@ from openapi_server.models.error_message import ErrorMessage  # noqa: E501
 from openapi_server.models.unified_metrics import UnifiedMetrics  # noqa: E501
 from openapi_server import util
 
+from openapi_server.controllers.parse_config import parse_conf, parse_host
+from openapi_server.controllers.read_param import read_host_list, read_metrics
+from openapi_server.controllers.build_metrics import build_metrics
+
 
 def get_unified_metric(start, end, interval, value, compress, metrics, racks=None, computers=None):  # noqa: E501
     """get_unified_metric
@@ -30,6 +34,50 @@ def get_unified_metric(start, end, interval, value, compress, metrics, racks=Non
 
     :rtype: UnifiedMetrics
     """
+
+    # Parse configuration
+    config = parse_conf()
+    db_host = config["influxdb"]["host"]
+    db_port = config["influxdb"]["port"]
+
+    # Parse host pool from hostlist
+    host_pool = parse_host()
+
+    # Generate host list and labels from user specified parameters
+    host_list = read_host_list(racks, computers, host_pool)
+    labels = read_metrics(metrics)
+
     start = util.deserialize_datetime(start)
     end = util.deserialize_datetime(end)
-    return 'do some magic!'
+
+    # We changed the database at April 28, 2020 11:40:00 AM GMT-05:00 DST. We
+    # need to decide which database we use according to user specified time range
+    switch_time = 1588092000
+    start_epoch = int(start.timestamp())
+    end_epoch = int(end.timestamp())
+
+    if start_epoch >= switch_time:
+        db_name = config["influxdb"]["db_monster"]
+    elif end_epoch <= switch_time:
+        db_name = config["influxdb"]["database"]
+    else:
+        return ErrorMessage(
+            error_code='400 INVALID_PARAMETERS',
+            error_message='Due to we switched database on April 28, 2020 \
+                11:40:00 AM GMT-05:00 DST, currently we do not support \
+                    requesting data with time range falls on this time point.'
+        )
+    
+    # Check Sanity
+    if start > end:
+        return ErrorMessage(
+            error_code='400 INVALID_PARAMETERS',
+            error_message='Start time should no larger than end time'
+        )
+    else:
+        # Query influxDB and build unified metrics
+        unified_metrics = build_metrics(db_host, db_port, db_name, 
+                                        start, end, 
+                                        interval, value, compress, 
+                                        host_list, labels)
+    return unified_metrics
