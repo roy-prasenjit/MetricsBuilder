@@ -13,9 +13,9 @@ info:
   version: 1.0.0
 servers:
 - description: Local test server
-  url: https://localhost:8090/
+  url: https://localhost:8080/
 - description: Redfish server
-  url: https://129.118.104.141:8090/
+  url: https://129.118.104.141:8080/
 paths:
   /v1/metrics:
     get:

@@ -11,7 +11,7 @@ def main():
     app.add_api('openapi.yaml',
                 arguments={'title': 'MetricsBuilder API'},
                 pythonic_params=True)
-    app.run(port=8090)
+    app.run(port=8080)
 
 
 if __name__ == '__main__':
