@@ -47,37 +47,43 @@ def get_unified_metric(start, end, interval, value, compress, metrics, racks=Non
     host_list = read_host_list(racks, computers, host_pool)
     labels = read_metrics(metrics)
 
-    start = util.deserialize_datetime(start)
-    end = util.deserialize_datetime(end)
-
-    # We changed the database at April 28, 2020 11:40:00 AM GMT-05:00 DST. We
-    # need to decide which database we use according to user specified time range
-    switch_time = 1588092000
-    start_epoch = int(start.timestamp())
-    end_epoch = int(end.timestamp())
-
-    if start_epoch >= switch_time:
-        db_name = config["influxdb"]["db_monster"]
-    elif end_epoch <= switch_time:
-        db_name = config["influxdb"]["database"]
-    else:
-        return ErrorMessage(
-            error_code='400 INVALID_PARAMETERS',
-            error_message='Due to we switched database on April 28, 2020 \
-                11:40:00 AM GMT-05:00 DST, currently we do not support \
-                    requesting data with time range falls on this time point.'
-        )
+    print("Racks: ", racks)
+    print("Computers: ", computers)
+    print("Host list: ", host_list)
+    print("Labels: ", labels)
     
-    # Check Sanity
-    if start > end:
-        return ErrorMessage(
-            error_code='400 INVALID_PARAMETERS',
-            error_message='Start time should no larger than end time'
-        )
-    else:
-        # Query influxDB and build unified metrics
-        unified_metrics = build_metrics(db_host, db_port, db_name, 
-                                        start, end, 
-                                        interval, value, compress, 
-                                        host_list, labels)
+    # start = util.deserialize_datetime(start)
+    # end = util.deserialize_datetime(end)
+
+    # # We changed the database at April 28, 2020 11:40:00 AM GMT-05:00 DST. We
+    # # need to decide which database we use according to user specified time range
+    # switch_time = 1588092000
+    # start_epoch = int(start.timestamp())
+    # end_epoch = int(end.timestamp())
+
+    # if start_epoch >= switch_time:
+    #     db_name = config["influxdb"]["db_monster"]
+    # elif end_epoch <= switch_time:
+    #     db_name = config["influxdb"]["database"]
+    # else:
+    #     return ErrorMessage(
+    #         error_code='400 INVALID_PARAMETERS',
+    #         error_message='Due to we switched database on April 28, 2020 \
+    #             11:40:00 AM GMT-05:00 DST, currently we do not support \
+    #                 requesting data with time range falls on this time point.'
+    #     )
+    
+    # # Check Sanity
+    # if start > end:
+    #     return ErrorMessage(
+    #         error_code='400 INVALID_PARAMETERS',
+    #         error_message='Start time should no larger than end time'
+    #     )
+    # else:
+    #     # Query influxDB and build unified metrics
+    #     unified_metrics = build_metrics(db_host, db_port, db_name, 
+    #                                     start, end, 
+    #                                     interval, value, compress, 
+    #                                     host_list, labels)
+    unified_metrics = "Test"
     return unified_metrics

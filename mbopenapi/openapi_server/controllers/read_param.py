@@ -78,4 +78,5 @@ def read_metrics(metrics: list) -> dict:
     except Exception as err:
         print(err)
     return labels
-    
+
+# read_host_list(racks: str, computers: str, host_pool: list)
