@@ -50,12 +50,12 @@ def query_node_data(node:str, client: object, start: str, end: str,
         job_list = query_job_list(client, node, start, end, interval)
 
         node_data["JobList"] = job_list
-    except Exception as err:
-        print(err)
-    # except:
-    #     logging.error(f"Failed to query data of node: {node}, \
-    #                     time range: {start} - {end}, interval: {interval}, \
-    #                     value: {value}")
+    # except Exception as err:
+    #     print(err)
+    except:
+        logging.error(f"Failed to query data of node: {node}, \
+                        time range: {start} - {end}, interval: {interval}, \
+                        value: {value}")
     return node_data
 
 

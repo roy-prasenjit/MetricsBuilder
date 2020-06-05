@@ -49,7 +49,7 @@ def read_metrics(metrics: list) -> dict:
     Map metrics specified by user to labels in influxDB
     """
     labels = {
-        "thermal_lables":[],
+        "thermal_labels":[],
         "uge_labels": [],
         "power_labels": []
     }
