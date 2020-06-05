@@ -47,10 +47,10 @@ def get_unified_metric(start, end, interval, value, compress, metrics, racks=Non
     host_list = read_host_list(racks, computers, host_pool)
     labels = read_metrics(metrics)
 
-    print("Racks: ", racks)
-    print("Computers: ", computers)
-    print("Host list: ", host_list)
-    print("Labels: ", labels)
+    # print("Racks: ", racks)
+    # print("Computers: ", computers)
+    # print("Host list: ", host_list)
+    # print("Labels: ", labels)
     
     start = util.deserialize_datetime(start)
     end = util.deserialize_datetime(end)
