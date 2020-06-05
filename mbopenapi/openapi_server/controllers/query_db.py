@@ -34,30 +34,28 @@ def query_node_data(node:str, client: object, start: str, end: str,
         uge_labels = labels["uge_labels"]
         power_labels = labels["power_labels"]
         # Get node metrics
-        if thermal_labels:
-            for label in thermal_labels:
-                reading = query_reading(client, node, "Thermal", label, 
-                                        start, end, interval, value)
-                node_data[label] = reading
-        if uge_labels:
-            for label in uge_labels:
-                reading = query_reading(client, node, "UGE", label, 
-                                        start, end, interval, value) 
-                node_data[label] = reading
-        if power_labels:
-            for label in power_labels:
-                reading = query_reading(client, node, "Power", label, 
-                                        start, end, interval, value)
-                node_data[label] = reading
+        for label in thermal_labels:
+            reading = query_reading(client, node, "Thermal", label, 
+                                    start, end, interval, value)
+            node_data[label] = reading
+        for label in uge_labels:
+            reading = query_reading(client, node, "UGE", label, 
+                                    start, end, interval, value) 
+            node_data[label] = reading
+        for label in power_labels:
+            reading = query_reading(client, node, "Power", label, 
+                                    start, end, interval, value)
+            node_data[label] = reading
         
         job_list = query_job_list(client, node, start, end, interval)
 
         node_data["JobList"] = job_list
-
-    except:
-        logging.error(f"Failed to query data of node: {node}, \
-                        time range: {start} - {end}, interval: {interval}, \
-                        value: {value}")
+    except Exception as err:
+        print(err)
+    # except:
+    #     logging.error(f"Failed to query data of node: {node}, \
+    #                     time range: {start} - {end}, interval: {interval}, \
+    #                     value: {value}")
     return node_data
 
 
