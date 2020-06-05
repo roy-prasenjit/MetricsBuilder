@@ -70,7 +70,7 @@ def read_metrics(metrics: list) -> dict:
             if metric == "CPU temperature" or metric == "Inlet temperature" \
             or metric == "Fans speed":
                 thermal_labels += mapping[metric]
-            elif metric == "Memory usage" or metric == "CPUUsage":
+            elif metric == "Memory usage" or metric == "CPU usage":
                 uge_labels += mapping[metric]
             else:
                 power_labels += mapping[metric]
