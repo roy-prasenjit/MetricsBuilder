@@ -75,7 +75,7 @@ def read_metrics(metrics: list) -> dict:
             else:
                 power_labels += mapping[metric]
         labels.update({
-            "thermal_lables":thermal_labels,
+            "thermal_labels":thermal_labels,
             "uge_labels": uge_labels,
             "power_labels": power_labels
         })
