@@ -32,14 +32,19 @@ def query_node_data(node:str, client: object, start: str, end: str,
         uge_labels = ["MemUsage", "CPUUsage"]
         power_labels = ["NodePower"]
         # Get node metrics
-        for label in thermal_labels:
-            reading = query_reading(client, node, "Thermal", label, start, end, interval, value)
-            node_data[label] = reading
-        for label in uge_labels:
-            reading = query_reading(client, node, "UGE", label, start, end, interval, value) 
-            node_data[label] = reading
-        for label in power_labels:
-            reading = query_reading(client, node, "Power", label, start, end, interval, value)
+        # for label in thermal_labels:
+        #     reading = query_reading(client, node, "Thermal", label, start, end, interval, value)
+        #     node_data[label] = reading
+        # for label in uge_labels:
+        #     reading = query_reading(client, node, "UGE", label, start, end, interval, value) 
+        #     node_data[label] = reading
+        # for label in power_labels:
+        #     reading = query_reading(client, node, "Power", label, start, end, interval, value)
+        #     node_data[label] = reading
+        
+        measurements = ["MemUsage", "CPUUsage"]
+        for measurement in measurements:
+            reading = query_reading(client, node, measurement, None, start, end, interval, value)
             node_data[label] = reading
         
         job_list = query_job_list(client, node, start, end, interval)
@@ -55,8 +60,12 @@ def query_reading(client: object, node: str, measurement: str, label: str,
                   start: str, end: str, interval: str, value: str) -> list:
     reading = []
     try:
-        query_sql = "SELECT " + value + "(Reading) FROM " + measurement \
-                    + " WHERE Label='" + label + "' AND NodeId='" + node \
+        # query_sql = "SELECT " + value + "(Reading) FROM " + measurement \
+        #             + " WHERE Label='" + label + "' AND NodeId='" + node \
+        #             + "' AND time >= '" + start + "' AND time < '" + end \
+        #             + "' GROUP BY time(" + interval + ") fill(null)"
+        query_sql = "SELECT " + value + "(value) FROM " + measurement \
+                    + "' AND Server='" + node \
                     + "' AND time >= '" + start + "' AND time < '" + end \
                     + "' GROUP BY time(" + interval + ") fill(null)"
         reading = list( client.query(query_sql).get_points() )
